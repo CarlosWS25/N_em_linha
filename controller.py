@@ -11,8 +11,6 @@ def registar_jogadores(comando, jogos, vitorias, nome):
     nome.append(comando[1])
     jogos.append(0)
     vitorias.append(0)
-
-def retirar_jogadores:
     
 def menu():
     print(
