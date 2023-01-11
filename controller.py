@@ -17,6 +17,12 @@ def registar_jogadores(comando, jogos : list, vitorias : list, nome : list):
         jogos.append(0)
         vitorias.append(0)
 
+def registar_jogadores(comando, jogos, vitorias, nome):
+    nome.append(comando[1])
+    jogos.append(0)
+    vitorias.append(0)
+    
+
 def menu():
     print(
 """
