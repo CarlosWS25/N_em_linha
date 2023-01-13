@@ -26,7 +26,23 @@ def main():
 """)
     apagar(3)
     while True:
-        menu()
+        print(
+"""
+╔═══════════════════════════════════════════════════╗
+║         Insira um dos seguintes comandos:         ║
+╠═══════════════════════════════════════════════════╣
+║            [RJ Nome] - Registar Jogador           ║
+║            [EJ Nome] - Eliminar Jogador           ║ 
+║              [LJ] - Listar Jogadores              ║
+║                [IJ] - Iniciar Jogo                ║
+║              [DJ] - Detalhes do Jogo              ║
+║                [D Nome]- Desistir                 ║
+║  [CP TamanhoPeça Posição Sentido] - Colocar Peça  ║
+║            [V] - Visualizar Resultado             ║
+║             [G NomeFicheiro] - Gravar             ║
+║              [L NomeFicheiro] - Ler               ║                    
+╚═══════════════════════════════════════════════════╝
+""")
         comando = input("Insira um comando: ").split(" ")
         if lista_players[0]["Nome"] == []: 
             while comando[0].lower() != "rj"  and comando[0].lower() != "l" :
@@ -47,7 +63,7 @@ def main():
                     break
                 elif comando[0].lower() == "dj":
                     os.system("cls")
-                    print("Não pode listar jogadores sem antes os registar...")
+                    print("Não pode ver os detalhes do jogo sem antes o iniciar")
                     apagar(2)
                     break 
                 elif comando[0].lower() == "d":
@@ -65,12 +81,7 @@ def main():
                     print("Não pode visualizar resultado sem ter jogadores registados...")
                     apagar(2)
                     break
-                elif comando[0].lower() == "dj":
-                    os.system("cls")
-                    print("Não pode ver detalhes de jogo sem antes ter iniciado jogo...")
-                    apagar(2)
-                    break
-                elif comando[0].lower() == "dj":
+                elif comando[0].lower() == "g":
                     os.system("cls")
                     print("Não existe progresso para ser guardado...")
                     apagar(2)
@@ -84,11 +95,16 @@ def main():
                 if len(comando) != 2:
                     os.system("cls")
                 else:
-                    os.system("cls")
-                    registar_jogadores(comando, jogos, vitorias, nome)
-                    print(lista_players)
-                    print("Jogador registado com sucesso.")
-                    apagar(2)
+                    verif = detetor_iguais(nome, comando)
+                    if verif == True:
+                        os.system("cls")
+                        print("Já existe um jogador com esse nome...")                            
+                        apagar(2)
+                    else:
+                        os.system("cls")
+                        registar_jogadores(comando, jogos, vitorias, nome)
+                        print("Jogador registado com sucesso.")
+                        apagar(2)
             elif comando[0].lower() == "l":
                 #carregar ficheiro load (Ainda não aprendemos)
                 pass
@@ -99,18 +115,16 @@ def main():
                         os.system("cls")
                         break
                     else:
-                        verif = detetor_iguais(lista_players, comando)
+                        verif = detetor_iguais(nome, comando)
                         if verif == True:
                             os.system("cls")
-                            print("Já existe um jogador com esse nome...")                            
-                            print(lista_players)
+                            print("Já existe um jogador com esse nome...")                           
                             apagar(2)
                             break
                         else:
                             os.system("cls")
                             registar_jogadores(comando, jogos, vitorias, nome)
                             print("Jogador registado com sucesso.")
-                            print(lista_players)
                             apagar(2)
                             break
                 elif comando[0].lower() == "lj":
@@ -120,14 +134,22 @@ def main():
                     apagar(2)
                     break
                 elif comando[0].lower() == "ej":
-                    while comando[1] not in lista_players[0]["Nome"]:
+                    if len(comando) != 2:
                         os.system("cls")
-                        print("Jogador não existente (Sistema sensível a maísculas e minúsculas.")
-                        apagar(2)
                         break
-                    
-
-            
+                    else:
+                        apagar_player = eliminar_jogador(nome, comando)
+                        if apagar_player == True:
+                            os.system("cls")
+                            print("Jogador eliminado com sucesso!")
+                            apagar(2)
+                            break
+                        else:
+                            os.system("cls")
+                            print("Jogador não existe!")
+                            apagar(2)
+                            break
+                                
 
 
 
